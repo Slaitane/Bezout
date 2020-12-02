@@ -1,0 +1,39 @@
+def bezout(a, b):
+    u0, v0, u1, v1 = 1, 0, 0, 1
+    while b > 0:
+        q = a // b
+        a, b = b , a%b
+        u0, v0 , u1, v1 = u1, v1, u0 - q* u1, v0 - q* v1
+    print("Bezout(",-v1, "," ,u1,") #PGCD:", a, "(u=",u0, ")* ",-v1," + (v=", v0,")*", u1,"  =",a)
+    
+""""
+Ce que fait ce programme :
+
+Il s'agit de pures relations mathématiques. Nous avons besoin de trouver le dernier reste non nul r_n. 
+On peut l'exprimer : r_n = u* a + v *b.
+Et pour une ième itération r_i = u_i* a + v_i *b.
+Etant donné que u_k+1 = u_k-1 - q_k * u_k et de même pour v_k+1 = v_k-1 - q_k * v_k.
+
+Au départ, on pose r_0 = a (qui correspond à la première itération) et r_1 = b (deuxième itération)
+Et on exprime i=0 par r_0 = r_1 * q_1 + r_2 ( car r_i = r_i+1 * q_i + r_i+2 ).
+
+Ce que nous faisons au tout début du programme c'est d'initialiser u0, v0, u1, v1 sachant que:
+- r_0 = a alors u0 = 1 et v0 = 0
+- r_1 = b alors u1 = 0 et v1 = 1
+( je les ai nommés (u0, v0, v1, u1) de la sorte pour savoir d'où ils proviennent ) 
+
+Ensuite, la boucle while avec la condition d'arrêt que b == 0 ( qu'on exprime par b > 0 ).
+Et tant que la condition n'est pas vérifiée:
+- b --> a
+- a%b = a - b* (a//b) --> b
+Et les valeurs de u0, v0, u1, v1 changent suivant la formule (ligne 15) 
+
+A la fin, lorsque b == 0 (condition d'arrêt), on obtient: 
+u0 = u et v0 = v (coefficients de bezout)
+u1 = b et v1 = -a (a et b initiaux)
+et on affiche la fameuse phrase.
+
+SLAITANE Oussama.
+""""
+
+
